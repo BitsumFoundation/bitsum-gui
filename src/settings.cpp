@@ -32,7 +32,7 @@ constexpr quint16 DEFAULT_LOCAL_RPC_PORT = 28081;
 constexpr char LOCAL_HOST[] = "127.0.0.1";
 
 #if defined(Q_OS_LINUX)
-constexpr char DEFAULT_WORK_DIR[] = ".bytecoin";
+constexpr char DEFAULT_WORK_DIR[] = ".bitsum";
 #endif
 
 const constexpr char* DEFAULT_MINING_POOLS[] = { "pool.bitsum.uz:3333", "sum.gonspool.com:4445", "sum.npool.pw:3333", "sum.dreampool.info:3333" };
