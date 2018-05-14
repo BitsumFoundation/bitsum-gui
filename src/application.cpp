@@ -44,8 +44,8 @@ WalletApplication::WalletApplication(int& argc, char** argv)
     , crashDialog_(new CrashDialog())
     , m_isAboutToQuit(false)
 {
-    setApplicationName("bytecoin"); // do not change becasuse it also changes data directory under Mac and Win
-    setApplicationDisplayName(tr("Bytecoin Wallet"));
+    setApplicationName("bitsum"); // do not change becasuse it also changes data directory under Mac and Win
+    setApplicationDisplayName(tr("Bitsum Wallet"));
     setApplicationVersion("2.0.0");
     setQuitOnLastWindowClosed(false);
     QLocale::setDefault(QLocale::c());
@@ -85,13 +85,13 @@ bool WalletApplication::init()
     makeDataDir(logsDir);
     WalletLogger::init(logsDir, true, this);
     WalletLogger::info(tr("[Application] Initializing..."));
-    QString path = dataDir.absoluteFilePath("bytecoin-gui.lock");
+    QString path = dataDir.absoluteFilePath("bitsum-gui.lock");
     m_lockFile.reset(new QLockFile(path));
 
     if (!m_lockFile->tryLock())
     {
-        WalletLogger::warning(tr("[Application] Bytecoin wallet GUI already running"));
-        QMessageBox::warning(nullptr, QObject::tr("Error"), tr("Bytecoin wallet GUI already running"));
+        WalletLogger::warning(tr("[Application] Bitsum wallet GUI already running"));
+        QMessageBox::warning(nullptr, QObject::tr("Error"), tr("Bitsum wallet GUI already running"));
         return false;
     }
 
@@ -175,7 +175,7 @@ void WalletApplication::makeDataDir(const QDir& dataDir)
 void WalletApplication::initSystemTrayIcon()
 {
     connect(m_systemTrayIcon, &QSystemTrayIcon::activated, this, &WalletApplication::trayActivated);
-    m_systemTrayIcon->setIcon(QIcon(":images/bytecoin_lin"));
+    m_systemTrayIcon->setIcon(QIcon(":images/bitsum_lin"));
     m_systemTrayIcon->show();
 }
 
@@ -314,14 +314,14 @@ void WalletApplication::disconnectedFromWalletd()
 
 void WalletApplication::detached()
 {
-    splashMsg(tr("Bytecoin GUI is in detached state.\nYou can open a wallet file, create a new one, or connect to remote walletd daemon."));
+    splashMsg(tr("Bitsum GUI is in detached state.\nYou can open a wallet file, create a new one, or connect to remote walletd daemon."));
     if (m_mainWindow)
         m_mainWindow->setDisconnectedState();
 }
 
 void WalletApplication::firstRun()
 {
-    splashMsg(tr("Looks like this is your first run of the new Bytecoin Wallet GUI. It is in detached state now.\nYou can open a wallet file, create a new one, or connect to remote walletd daemon."));
+    splashMsg(tr("Looks like this is your first run of the new Bitsum Wallet GUI. It is in detached state now.\nYou can open a wallet file, create a new one, or connect to remote walletd daemon."));
 }
 
 void WalletApplication::daemonErrorOccurred(QProcess::ProcessError error, QString errorString)

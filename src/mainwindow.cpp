@@ -42,13 +42,13 @@ namespace WalletGUI {
 namespace {
 
 //const int MAX_RECENT_WALLET_COUNT = 10;
-//const char COMMUNITY_FORUM_URL[] = "https://bytecointalk.org";
-const char COMMUNITY_FORUM_URL[] = "https://bytecoin.org";
-const char REPORT_ISSUE_URL[] = "https://bytecoin.org/contact";
+//const char COMMUNITY_FORUM_URL[] = "http://t.me/bitsum";
+const char COMMUNITY_FORUM_URL[] = "https://bitsum.money";
+const char REPORT_ISSUE_URL[] = "http://t.me/bitsumchat";
 
 const char BUTTON_STYLE_SHEET[] =
         "QPushButton {border: none;}"
-        "QPushButton:checked {background-color: #EE4486; color: #FFFFFF}";
+        "QPushButton:checked {background-color: #3b5ca3; color: #FFFFFF}";
 }
 
 MainWindow::MainWindow(
@@ -193,13 +193,13 @@ void MainWindow::showSendConfirmation(const RpcApi::CreatedTx& tx)
         }
         const QString& amountStr = formatAmount(tf.amount);
         const QString& addressStr = tf.address;
-        msg.append(tr("%1 BCN to %2\n").arg(amountStr).arg(addressStr));
+        msg.append(tr("%1 BSM to %2\n").arg(amountStr).arg(addressStr));
     }
-    msg.append(tr("Fee: %1 BCN\n").arg(formatAmount(tx.transaction.fee)));
-    msg.append(tr("Total send: %1 BCN").arg(formatAmount(-ourAmount)));
+    msg.append(tr("Fee: %1 BSM\n").arg(formatAmount(tx.transaction.fee)));
+    msg.append(tr("Total send: %1 BSM").arg(formatAmount(-ourAmount)));
 
     SendConfirmationDialog dlg(
-                tr("Confirm send coins"),
+                tr("Confirm sending"),
                 msg,
                 5,
                 this);

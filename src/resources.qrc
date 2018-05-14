@@ -98,10 +98,10 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="splash">images/splash.png</file>
-        <file alias="bytecoin_lin">images/bytecoin.png</file>
         <file alias="add_address_helper">images/add_address_helper.png</file>
-        <file alias="bytecoin_mac">images/bytecoin.icns</file>
-        <file alias="bytecoin_win">images/bytecoin.ico</file>
+        <file alias="bitsum_lin">images/bitsum.png</file>
+        <file alias="bitsum_win">images/bitsum.ico</file>
+        <file alias="bitsum_mac">images/bitsum.icns</file>
     </qresource>
     <qresource prefix="/style">
         <file alias="qss">bytecoinwallet.qss</file>

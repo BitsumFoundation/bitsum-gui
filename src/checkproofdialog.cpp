@@ -59,7 +59,7 @@ void CheckProofDialog::proofChanged()
     const RpcApi::Proof proof = RpcApi::Proof::fromJson(json.toVariantMap());
 
     ui->messageLabel->setText(proof.message);
-    ui->amountLabel->setText(formatAmount(proof.amount) + " BCN");
+    ui->amountLabel->setText(formatAmount(proof.amount) + " BSM");
     ui->addressLabel->setText(proof.address);
     ui->txHashLabel->setText(proof.transaction_hash);
 }
