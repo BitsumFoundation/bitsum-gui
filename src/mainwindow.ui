@@ -30,7 +30,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/images/bytecoin</normaloff>:/images/bytecoin</iconset>
+    <normaloff>:/images/bitsum</normaloff>:/images/bitsum</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -734,7 +734,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;About Bytecoin</string>
+    <string>&amp;About Bitsum</string>
    </property>
   </action>
   <action name="m_aboutQtAction">

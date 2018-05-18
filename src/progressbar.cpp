@@ -12,7 +12,7 @@ const char PROGRESS_BAR_STYLE_SHEET_TEMPLATE[] =
     "max-height:5px;"
     "}"
     "WalletGUI--WalletProgressBar::chunk {"
-    "background-color: #EE4486;"
+    "background-color: #3b5ca3;"
     "}";
 
 WalletProgressBar::WalletProgressBar(QWidget* parent)

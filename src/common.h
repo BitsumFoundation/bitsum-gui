@@ -9,16 +9,16 @@
 
 class QUrl;
 
-constexpr const char* CURRENCY_TICKER = "BCN";
+constexpr const char* CURRENCY_TICKER = "BSM";
 constexpr const uint64_t MAXIMUM_UNSYNCED_BLOCKS_WHEN_SEND_AVAILABLE = 5;
-constexpr const uint64_t COIN = 100000000;
+constexpr const uint64_t COIN = 10000000000;
 constexpr const uint32_t CONFIRMATIONS = 3;
-constexpr const int NUMBER_OF_DECIMAL_PLACES = 8;
+constexpr const int NUMBER_OF_DECIMAL_PLACES = 10;
 constexpr const int64_t DEFAULT_MIXIN_VALUE = 6;
 constexpr const int64_t MAX_MIXIN_VALUE = 1000;
 constexpr const int64_t CRITICAL_MIXIN_BOUND = 3;
 constexpr const int64_t NORMAL_MIXIN_BOUND = 6;
-constexpr const uint16_t RPC_DEFAULT_PORT = 8070;
+constexpr const uint16_t RPC_DEFAULT_PORT = 28081;
 
 constexpr const uint64_t DIFFICULTY_TARGET = 120; // seconds
 constexpr const uint64_t CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS = 1;

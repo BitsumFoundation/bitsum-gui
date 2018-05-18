@@ -48,7 +48,7 @@ void MagicToolTip::paintEvent(QPaintEvent* /*event*/)
     roundedRect.setWidth(rect().width() - 10);
     roundedRect.setHeight(rect().height() - 10);
 
-    painter.setBrush(QBrush(QColor(0xEE4486))); // TODO: make setter
+    painter.setBrush(QBrush(QColor(0x3b5ca3))); // TODO: make setter
     painter.setPen(Qt::NoPen);
     painter.drawRoundedRect(roundedRect, 7, 7);
 }

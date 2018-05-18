@@ -686,7 +686,7 @@ QVariant WalletModel::getDisplayRoleStatus(const QModelIndex& index) const
     }
     case COLUMN_LOWER_LEVEL_ERROR:
 //        return pimpl_->status.lower_level_error;
-        return pimpl_->status.lower_level_error.isEmpty() ? tr("Connected to bytecoind") : tr("Bytecoind status: %1").arg(pimpl_->status.lower_level_error);
+        return pimpl_->status.lower_level_error.isEmpty() ? tr("Connected to bitsumd") : tr("bitsumd status: %1").arg(pimpl_->status.lower_level_error);
     case COLUMN_NEXT_BLOCK_EFFECTIVE_MEDIAN_SIZE:
         return pimpl_->status.next_block_effective_median_size;
     case COLUMN_TXPOOL_VERSION:

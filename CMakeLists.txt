@@ -1,8 +1,10 @@
 # to build on mac you should have added a path to your qt directory in CMAKE_PREFIX_PATH environment variable
 # for ex.: export CMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH:/Users/testnet/Qt/5.9.2/clang_64/lib/cmake"
 
+set (CMAKE_PREFIX_PATH "C:\\Qt\\5.10.1\\msvc2017_64\\")
+
 cmake_minimum_required(VERSION 3.0.2)
-project(bytecoin-gui)
+project(bitsum-gui)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
 find_package(Qt5Core REQUIRED)
@@ -83,9 +85,9 @@ set(SOURCES
 )
 
 include_directories(${CMAKE_BINARY_DIR} src )
-include_directories(../bytecoin/include)
-include_directories(../bytecoin/src)
-link_directories(../bytecoin/libs)
-add_executable(bytecoin-gui ${SOURCES} src/resources.qrc)
-target_link_libraries(bytecoin-gui bytecoin-crypto)
-qt5_use_modules(bytecoin-gui Core Network Gui Widgets)
+include_directories(../bitsum_core/include)
+include_directories(../bitsum_core/src)
+link_directories(../bitsum_core/libs)
+add_executable(bitsum-gui ${SOURCES} src/resources.qrc src/bitsum-gui.rc)
+target_link_libraries(bitsum-gui bitsum-crypto)
+qt5_use_modules(bitsum-gui Core Network Gui Widgets)

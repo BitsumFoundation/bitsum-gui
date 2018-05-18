@@ -20,8 +20,8 @@ namespace WalletGUI {
 
 namespace {
 
-  const char OLD_LOG_FILE_NAME[] = "bytecoinwalletgui.log";
-  const char LOG_FILE_NAME[] = "bytecoin-gui.log";
+  const char OLD_LOG_FILE_NAME[] = "bitsumnwalletgui.log";
+  const char LOG_FILE_NAME[] = "bitsum-gui.log";
 
 }
 

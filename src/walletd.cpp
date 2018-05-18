@@ -746,13 +746,13 @@ QString BuiltinWalletd::errorMessage(ReturnCode err)
         msg = tr("Database write error. Disk is full or database is corrupted.");
         break;
     case ReturnCode::BYTECOIND_ALREADY_RUNNING:
-        msg = tr("Cannot run bytecoind. Another instance of bytecoind is running.");
+        msg = tr("Cannot run bitsumd. Another instance of bitsumd is running.");
         break;
     case ReturnCode::WALLETD_BIND_PORT_IN_USE:
         msg = tr("Cannot run walletd. Walletd bind port in use.");
         break;
     case ReturnCode::BYTECOIND_BIND_PORT_IN_USE:
-        msg = tr("Cannot run bytecoind. Bytecoind bind port in use.");
+        msg = tr("Cannot run bitsumd. bitsumd bind port in use.");
         break;
     case ReturnCode::WALLET_FILE_READ_ERROR:
         msg = tr("Cannot read the specified wallet file.");
@@ -767,7 +767,7 @@ QString BuiltinWalletd::errorMessage(ReturnCode err)
         msg = tr("Cannot write to the wallet file. Probably your file system is read only.");
         break;
     case ReturnCode::WALLET_FILE_EXISTS:
-        msg = tr("The specified wallet file already exists. Bytecoin wallet could not overwrite an existed file for safety reason. If you want to overwrite the file please remove it manually and try again.");
+        msg = tr("The specified wallet file already exists. Bitsum wallet could not overwrite an existed file for safety reason. If you want to overwrite the file please remove it manually and try again.");
         break;
     case ReturnCode::WALLET_WITH_THE_SAME_VIEWKEY_IN_USE:
         msg = tr("Another walletd instance is using the specified wallet file or another wallet file with the same view key.");

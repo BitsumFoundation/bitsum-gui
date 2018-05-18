@@ -28,14 +28,14 @@ constexpr char OPTION_MINING_POOL_LIST[] = "miningPoolList";
 constexpr char OPTION_RECENT_WALLETS[] = "recentWallets";
 constexpr char OPTION_WALLETD_PARAMS[] = "walletdParams";
 
-constexpr quint16 DEFAULT_LOCAL_RPC_PORT = 8070;
+constexpr quint16 DEFAULT_LOCAL_RPC_PORT = 28081;
 constexpr char LOCAL_HOST[] = "127.0.0.1";
 
 #if defined(Q_OS_LINUX)
-constexpr char DEFAULT_WORK_DIR[] = ".bytecoin";
+constexpr char DEFAULT_WORK_DIR[] = ".bitsum";
 #endif
 
-const constexpr char* DEFAULT_MINING_POOLS[] = { "pool.bytecoin.party:3333", "bytecoin.uk:3333", "bytecoin-pool.org:3333", "bcn.pool.minergate.com:45550" };
+const constexpr char* DEFAULT_MINING_POOLS[] = { "pool.bitsum.uz:3333", "sum.gonspool.com:4445", "sum.npool.pw:3333", "sum.dreampool.info:3333" };
 
 static
 bool readJsonFile(QIODevice& device, QSettings::SettingsMap& map)
@@ -66,7 +66,7 @@ Settings::Settings()
     const QSettings::Format jsonFormat = QSettings::registerFormat("json", readJsonFile, writeJsonFile);
     QSettings::setDefaultFormat(jsonFormat);
     makeDataDir(getDefaultWorkDir());
-    const QString jsonFile = getDefaultWorkDir().absoluteFilePath("bytecoin-gui.config");
+    const QString jsonFile = getDefaultWorkDir().absoluteFilePath("bitsum-gui.config");
 
     settings_.reset(new QSettings(jsonFile, jsonFormat));
 }
@@ -122,8 +122,8 @@ QString Settings::getUserFriendlyConnectionMethod() const
 {
     switch(getConnectionMethod())
     {
-    case ConnectionMethod::BUILTIN:return tr("built-in walletd");
-    case ConnectionMethod::LOCAL:   return tr("local walletd");
+    case ConnectionMethod::BUILTIN:return tr("built-in wallet-rpc");
+    case ConnectionMethod::LOCAL:   return tr("local wallet-rpc");
     case ConnectionMethod::REMOTE:  return getRemoteRpcEndPoint();
     }
     return QString();
@@ -251,9 +251,9 @@ QString Settings::getDefaultWalletdPath()
 {
     const QString dir = qApp->applicationDirPath();
 #ifdef Q_OS_WIN32
-    return dir + '/' + "walletd.exe";
+    return dir + '/' + "wallet-rpc.exe";
 #else
-    return dir + '/' + "walletd";
+    return dir + '/' + "wallet-rpc";
 #endif
 }
 

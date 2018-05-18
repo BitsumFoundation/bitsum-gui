@@ -203,7 +203,7 @@ void TransferFrame::setAmountFormatError(bool error)
                 &TransferFrame::validateAmount, Qt::UniqueConnection);
     }
     else
-        m_ui->m_amountTextLabel->setText(tr("Amount (BCN)"));
+        m_ui->m_amountTextLabel->setText(tr("Amount (BSM)"));
 
     m_ui->m_sendAmountSpin->style()->unpolish(m_ui->m_sendAmountSpin);
     m_ui->m_sendAmountSpin->style()->polish(m_ui->m_sendAmountSpin);
@@ -225,7 +225,7 @@ void TransferFrame::setInsufficientFundsError(bool error)
                 &TransferFrame::validateAmount, Qt::UniqueConnection);
     }
     else
-        m_ui->m_amountTextLabel->setText(tr("Amount (BCN)"));
+        m_ui->m_amountTextLabel->setText(tr("Amount (BSM)"));
 
     m_ui->m_sendAmountSpin->style()->unpolish(m_ui->m_sendAmountSpin);
     m_ui->m_sendAmountSpin->style()->polish(m_ui->m_sendAmountSpin);
@@ -247,7 +247,7 @@ void TransferFrame::setBigTransactionError(bool error)
                 &TransferFrame::validateAmount, Qt::UniqueConnection);
     }
     else
-        m_ui->m_amountTextLabel->setText(tr("Amount (BCN)"));
+        m_ui->m_amountTextLabel->setText(tr("Amount (BSM)"));
 
     m_ui->m_sendAmountSpin->style()->unpolish(m_ui->m_sendAmountSpin);
     m_ui->m_sendAmountSpin->style()->polish(m_ui->m_sendAmountSpin);
