@@ -28,7 +28,7 @@ constexpr char OPTION_MINING_POOL_LIST[] = "miningPoolList";
 constexpr char OPTION_RECENT_WALLETS[] = "recentWallets";
 constexpr char OPTION_WALLETD_PARAMS[] = "walletdParams";
 
-constexpr quint16 DEFAULT_LOCAL_RPC_PORT = 28081;
+constexpr quint16 DEFAULT_LOCAL_RPC_PORT = 28082;
 constexpr char LOCAL_HOST[] = "127.0.0.1";
 
 #if defined(Q_OS_LINUX)
