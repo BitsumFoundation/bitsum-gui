@@ -30,8 +30,11 @@
 #include "checkproofdialog.h"
 #include "walletdparamsdialog.h"
 #include "questiondialog.h"
+#include "version.h"
 
 namespace WalletGUI {
+
+//const char VERSION_DATA_URL[] = "https://raw.githubusercontent.com/bcndev/bytecoin-gui/master/LatestStableVersion.txt?1"; // use ?1 trick to force reload and bypass cache
 
 WalletApplication::WalletApplication(int& argc, char** argv)
     : QApplication(argc, argv)
@@ -41,15 +44,20 @@ WalletApplication::WalletApplication(int& argc, char** argv)
     , addressBookManager_(nullptr)
     , walletd_(nullptr)
     , walletModel_(new WalletModel(this))
+ //   , downloader_(new FileDownloader(this))
     , crashDialog_(new CrashDialog())
     , m_isAboutToQuit(false)
 {
     setApplicationName("bitsum"); // do not change becasuse it also changes data directory under Mac and Win
     setApplicationDisplayName(tr("Bitsum Wallet"));
-    setApplicationVersion("2.0.0");
+    setApplicationVersion(VERSION);
     setQuitOnLastWindowClosed(false);
     QLocale::setDefault(QLocale::c());
     loadFonts();
+
+    //checkForUpdateTimer_.setInterval(12*60*60*1000); // 12 hours
+    //connect(&checkForUpdateTimer_, &QTimer::timeout, this, &WalletApplication::checkForUpdate);
+    //checkForUpdateTimer_.start();
 
     connect(this, &WalletApplication::createWalletdSignal, this, &WalletApplication::createWalletd, Qt::QueuedConnection);
 }
@@ -130,11 +138,15 @@ bool WalletApplication::init()
     connect(this, &WalletApplication::builtinRunSignal, m_mainWindow, &MainWindow::builtinRun);
     connect(this, &WalletApplication::aboutToQuit, this, &WalletApplication::prepareToQuit);
 
+    //connect(downloader_, &FileDownloader::downloaded, this, &WalletApplication::updateReceived);
+    //connect(this, &WalletApplication::updateIsReadySignal, m_mainWindow, &MainWindow::updateIsReady);
     if(isFirstRun)
         firstRun();
     else
 //        createWalletd();
         emit createWalletdSignal(QPrivateSignal{});
+
+    //checkForUpdate();
     return true;
 }
 
@@ -275,7 +287,7 @@ void WalletApplication::runBuiltinWalletd(const QString& walletFile, bool create
 //        walletd_->deleteLater();
     }
 
-    splashMsg(tr("Running walletd..."));
+    splashMsg(tr("Running wallet-rpc..."));
     BuiltinWalletd* walletd = new BuiltinWalletd(walletFile, createNew, std::move(keys), this);
     walletd_ = walletd;
 
@@ -314,14 +326,14 @@ void WalletApplication::disconnectedFromWalletd()
 
 void WalletApplication::detached()
 {
-    splashMsg(tr("Bitsum GUI is in detached state.\nYou can open a wallet file, create a new one, or connect to remote walletd daemon."));
+    splashMsg(tr("Bitsum GUI is in detached state.\nYou can open a wallet file, create a new one, or connect to remote wallet-rpc daemon."));
     if (m_mainWindow)
         m_mainWindow->setDisconnectedState();
 }
 
 void WalletApplication::firstRun()
 {
-    splashMsg(tr("Looks like this is your first run of the new Bitsum Wallet GUI. It is in detached state now.\nYou can open a wallet file, create a new one, or connect to remote walletd daemon."));
+    splashMsg(tr("Looks like this is your first run of the new Bitsum Wallet GUI. It is in detached state now.\nYou can open a wallet file, create a new one, or connect to remote wallet-rpc daemon."));
 }
 
 void WalletApplication::daemonErrorOccurred(QProcess::ProcessError error, QString errorString)
@@ -330,9 +342,9 @@ void WalletApplication::daemonErrorOccurred(QProcess::ProcessError error, QStrin
         return;
 
     m_mainWindow->showLog();
-    if (crashDialog_->execWithReason(tr("Failed to run walletd: ") + errorString, false) == QDialog::Accepted)
+    if (crashDialog_->execWithReason(tr("Failed to run wallet-rpc: ") + errorString, false) == QDialog::Accepted)
     {
-        splashMsg(tr("Restarting walletd..."));
+        splashMsg(tr("Restarting wallet-rpc..."));
         walletd_->run();
     }
 }
@@ -350,7 +362,7 @@ void WalletApplication::daemonFinished(int exitCode, QProcess::ExitStatus /*exit
     const QString walletdMsg = BuiltinWalletd::errorMessage(static_cast<BuiltinWalletd::ReturnCode>(exitCode));
     const QString msg = !walletdMsg.isEmpty() ?
                             walletdMsg :
-                            tr("Walletd just crashed. %1. Return code %2. ").arg(walletd->errorString()).arg(exitCode);
+                            tr("wallet-rpc just crashed. %1. Return code %2. ").arg(walletd->errorString()).arg(exitCode);
 
     if (crashDialog_->execWithReason(msg, false) == QDialog::Accepted)
         restartDaemon();
@@ -364,7 +376,7 @@ void WalletApplication::connectToRemoteWalletd()
         walletd_ = nullptr;
     }
 
-    splashMsg(tr("Connecting to walletd..."));
+    splashMsg(tr("Connecting to wallet-rpc..."));
     walletd_ = new RemoteWalletd(Settings::instance().getRpcEndPoint(), this);
     subscribeToWalletd();
     Settings::instance().setConnectionMethod(ConnectionMethod::REMOTE);
@@ -557,5 +569,25 @@ void WalletApplication::exportKeys()
 {
     emit exportKeysSignal(m_mainWindow, QPrivateSignal{});
 }
+
+//void WalletApplication::checkForUpdate()
+//{
+//    downloader_->download(QUrl::fromUserInput(VERSION_DATA_URL));
+//}
+
+//void WalletApplication::updateReceived()
+//{
+//    const QString newVersionStr = downloader_->downloadedData();
+//    const QString currentVersionStr = VERSION;
+//    bool ok = false;
+//    const int newVersion = QString(newVersionStr).remove('.').toInt(&ok);
+//    if (!ok)
+//        return;
+//    ok = false;
+//    const int currentVersion = QString(currentVersionStr).remove('.').toInt(&ok);
+//    Q_ASSERT(ok);
+//    if (newVersion > currentVersion)
+//        emit updateIsReadySignal(newVersionStr);
+//}
 
 }

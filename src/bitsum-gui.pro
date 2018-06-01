@@ -15,7 +15,7 @@ TEMPLATE = app
 macx: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
 macx: ICON = images/bitsum.icns
 win32: RC_ICONS = images/bitsum.ico
-win32: VERSION = 2.18.4.4
+win32: VERSION = 1.18.6.1
 
 #QMAKE_CXXFLAGS += -fno-omit-frame-pointer -fsanitize=address,undefined
 #LIBS += -lasan -lubsan
@@ -26,8 +26,8 @@ DESTDIR = $$PWD/../bin
 
 # copy walletd adjacent to bitsum-gui binary on all 3 platforms
 win32 {
-WALLETD_BY_SRC_PATH = $$shell_path($$clean_path("$$PWD/../../bitsum_core/bin/wallet-rpc.exe"))
-BYTECOIND_BY_SRC_PATH = $$shell_path($$clean_path("$$PWD/../../bitsum_core/bin/bitsumd.exe"))
+WALLETD_BY_SRC_PATH = $$shell_path($$clean_path("$$PWD/../../bitsum_core/bin/x64/Release/wallet-rpc.exe"))
+BYTECOIND_BY_SRC_PATH = $$shell_path($$clean_path("$$PWD/../../bitsum_core/bin/x64/Release/bitsumd.exe"))
 Debug:BY_DST_PATH = $$shell_path($$clean_path("$$DESTDIR"))
 Release:BY_DST_PATH = $$shell_path($$clean_path("$$DESTDIR"))
 copywalletd.commands = $(COPY_FILE) $${WALLETD_BY_SRC_PATH} $${BY_DST_PATH}
@@ -161,7 +161,7 @@ HEADERS  += mainwindow.h \
     checkproofdialog.h \
     walletdparamsdialog.h \
     exportkeydialog.h \
-    version.h
+    version.h \
 
 FORMS    += mainwindow.ui \
     overviewframe.ui \
@@ -197,7 +197,7 @@ unix|win32: LIBS += -L$$PWD/../../bitsum_core/libs/ -lbitsum-crypto
 INCLUDEPATH += $$PWD/../../bitsum_core/src
 DEPENDPATH += $$PWD/../../bitsum_core/src
 
-win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/bitsum-crypto.lib
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/x64/Release/bitsum-crypto.lib
 else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/libbitsum-crypto.a
 
 # to add necessary dependencies,

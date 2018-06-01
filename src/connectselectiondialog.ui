@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Please specify walletd address</string>
+      <string>Please specify wallet-rpc address</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

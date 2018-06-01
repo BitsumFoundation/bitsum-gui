@@ -18,7 +18,7 @@ constexpr const int64_t DEFAULT_MIXIN_VALUE = 6;
 constexpr const int64_t MAX_MIXIN_VALUE = 1000;
 constexpr const int64_t CRITICAL_MIXIN_BOUND = 3;
 constexpr const int64_t NORMAL_MIXIN_BOUND = 6;
-constexpr const uint16_t RPC_DEFAULT_PORT = 28081;
+constexpr const uint16_t RPC_DEFAULT_PORT = 28082;
 
 constexpr const uint64_t DIFFICULTY_TARGET = 120; // seconds
 constexpr const uint64_t CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS = 1;

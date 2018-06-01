@@ -20,7 +20,7 @@ namespace
 {
 
 constexpr int RERUN_TIMER_MSEC = 3000;
-constexpr int STATUS_TIMER_MSEC = 4000;
+constexpr int STATUS_TIMER_MSEC = 15000;
 constexpr int WAITING_TIMEOUT_MSEC = 10000;
 
 template <typename Func1>
@@ -150,9 +150,9 @@ RemoteWalletd::RemoteWalletd(const QString& endPoint, QObject* parent)
     rerunTimer_.setSingleShot(true);
     rerunTimer_.setInterval(RERUN_TIMER_MSEC);
     rerunTimer_.setSingleShot(false);
-    statusTimer_.setInterval(STATUS_TIMER_MSEC);
+//    statusTimer_.setInterval(STATUS_TIMER_MSEC);
     connect(&rerunTimer_, &QTimer::timeout, this, &RemoteWalletd::rerun);
-    connect(&statusTimer_, &QTimer::timeout, this, &RemoteWalletd::sendGetStatus);
+//    connect(&statusTimer_, &QTimer::timeout, this, &RemoteWalletd::sendGetStatus);
 }
 
 /*virtual*/
@@ -195,7 +195,7 @@ void RemoteWalletd::run()
             this, &RemoteWalletd::errorOccurred,
             [this]()
             {
-                statusTimer_.start();
+//                statusTimer_.start();
                 jsonClient_->sendGetStatus(RpcApi::GetStatus::Request{});
             });
 
@@ -211,7 +211,7 @@ void RemoteWalletd::run()
 void RemoteWalletd::stop()
 {
     rerunTimer_.stop();
-    statusTimer_.stop();
+//    statusTimer_.stop();
     setState(State::STOPPED);
 }
 
@@ -220,6 +220,18 @@ void RemoteWalletd::statusReceived(const RpcApi::Status& status)
     if (state_ != State::STOPPED)
         setState(State::CONNECTED);
     emit statusReceivedSignal(status);
+    if (state_ == State::CONNECTED)
+    {
+
+        jsonClient_->sendGetStatus(RpcApi::GetStatus::Request{
+                    status.top_block_hash,
+                    status.transaction_pool_version,
+                    status.outgoing_peer_count,
+                    status.incoming_peer_count,
+                    status.lower_level_error});
+
+        jsonClient_->sendGetBalance(RpcApi::GetBalance::Request{QString{}, -1});
+    }
 }
 
 void RemoteWalletd::transfersReceived(const RpcApi::Transfers& history)
@@ -311,7 +323,7 @@ void RemoteWalletd::setState(State state)
     state_ = state;
 
     QMetaEnum metaEnum = QMetaEnum::fromType<RemoteWalletd::State>();
-    qDebug("[Walletd] Remote state changed: %s -> %s",
+    qDebug("[wallet-rpc] Remote state changed: %s -> %s",
                 metaEnum.valueToKey(static_cast<int>(oldState)),
                 metaEnum.valueToKey(static_cast<int>(state)));
 
@@ -438,11 +450,11 @@ void BuiltinWalletd::run(const QStringList& args)
     walletd_->setArguments(savedArgs + args);
     walletd_->start();
 
-    qDebug("[Walletd] Waiting for walletd running...");
+    qDebug("[wallet-rpc] Waiting for wallet-rpc running...");
     if (walletd_->waitForStarted(WAITING_TIMEOUT_MSEC))
-        qDebug("[Walletd] Walletd started.");
+        qDebug("[wallet-rpc] wallet-rpc started.");
     else
-        qDebug("[Walletd] Walletd running is timed out.");
+        qDebug("[wallet-rpc] wallet-rpc running is timed out.");
 }
 
 /*virtual*/
@@ -453,11 +465,11 @@ void BuiltinWalletd::stop()
         return;
     setState(State::FINISHING);
     walletd_->kill(); // terminate doesn't work on windows, so we use kill
-    qDebug("[Walletd] Waiting for walletd finished...");
+    qDebug("[wallet-rpc] Waiting for wallet-rpc finished...");
     if (walletd_->waitForFinished(WAITING_TIMEOUT_MSEC))
-        qDebug("[Walletd] Walletd terminated.");
+        qDebug("[wallet-rpc] wallet-rpc terminated.");
     else
-        qDebug("[Walletd] Walletd terminating is timed out.");
+        qDebug("[wallet-rpc] wallet-rpc terminating is timed out.");
 }
 
 void BuiltinWalletd::changeWalletPassword(QString&& oldPassword, QString&& newPassword)
@@ -550,7 +562,7 @@ void BuiltinWalletd::setState(State state)
     state_ = state;
 
     const QMetaEnum metaEnum = QMetaEnum::fromType<BuiltinWalletd::State>();
-    qDebug("[Walletd] Builtin state changed: %s -> %s",
+    qDebug("[wallet-rpc] Builtin state changed: %s -> %s",
                 metaEnum.valueToKey(static_cast<int>(oldState)),
                 metaEnum.valueToKey(static_cast<int>(state)));
 
@@ -662,11 +674,11 @@ void BuiltinWalletd::exportViewOnlyKeys(QWidget* parent/*, const QString& export
     pass.fill('0', 200);
     pass.clear();
 
-    qDebug("[Walletd] Waiting for walletd finished...");
+    qDebug("[wallet-rpc] Waiting for wallet-rpc finished...");
     if (walletd.waitForFinished(WAITING_TIMEOUT_MSEC))
-        qDebug("[Walletd] Walletd terminated.");
+        qDebug("[wallet-rpc] wallet-rpc terminated.");
     else
-        qDebug("[Walletd] Walletd terminating is timed out.");
+        qDebug("[wallet-rpc] wallet-rpc terminating is timed out.");
 }
 
 void BuiltinWalletd::exportKeys(QWidget* parent)
@@ -722,11 +734,11 @@ void BuiltinWalletd::exportKeys(QWidget* parent)
     pass.fill('0', 200);
     pass.clear();
 
-    qDebug("[Walletd] Waiting for walletd finished...");
+    qDebug("[wallet-rpc] Waiting for wallet-rpc finished...");
     if (walletd.waitForFinished(WAITING_TIMEOUT_MSEC))
-        qDebug("[Walletd] Walletd terminated.");
+        qDebug("[wallet-rpc] wallet-rpc terminated.");
     else
-        qDebug("[Walletd] Walletd terminating is timed out.");
+        qDebug("[wallet-rpc] wallet-rpc terminating is timed out.");
 
     if (walletd.exitCode() != 0)
         return;
@@ -749,7 +761,7 @@ QString BuiltinWalletd::errorMessage(ReturnCode err)
         msg = tr("Cannot run bitsumd. Another instance of bitsumd is running.");
         break;
     case ReturnCode::WALLETD_BIND_PORT_IN_USE:
-        msg = tr("Cannot run walletd. Walletd bind port in use.");
+        msg = tr("Cannot run wallet-rpc. Wallet-rpc bind port in use.");
         break;
     case ReturnCode::BYTECOIND_BIND_PORT_IN_USE:
         msg = tr("Cannot run bitsumd. bitsumd bind port in use.");
@@ -767,16 +779,16 @@ QString BuiltinWalletd::errorMessage(ReturnCode err)
         msg = tr("Cannot write to the wallet file. Probably your file system is read only.");
         break;
     case ReturnCode::WALLET_FILE_EXISTS:
-        msg = tr("The specified wallet file already exists. Bitsum wallet could not overwrite an existed file for safety reason. If you want to overwrite the file please remove it manually and try again.");
+        msg = tr("The specified wallet file already exists. Bytecoin wallet could not overwrite an existed file for safety reason. If you want to overwrite the file please remove it manually and try again.");
         break;
     case ReturnCode::WALLET_WITH_THE_SAME_VIEWKEY_IN_USE:
-        msg = tr("Another walletd instance is using the specified wallet file or another wallet file with the same view key.");
+        msg = tr("Another wallet-rpc instance is using the specified wallet file or another wallet file with the same view key.");
         break;
     case ReturnCode::WALLETD_WRONG_ARGS:
-        msg = tr("Wrong arguments passed to walletd.");
+        msg = tr("Wrong arguments passed to wallet-rpc.");
         break;
     case ReturnCode::WALLETD_EXPORTKEYS_MORETHANONE:
-        msg = tr("Walletd cannot export keys for more than one spend keypair");
+        msg = tr("Cannot export keys for more than one spend keypair");
         break;
     }
     return msg;

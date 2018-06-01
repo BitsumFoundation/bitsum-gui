@@ -109,7 +109,7 @@
         <number>65535</number>
        </property>
        <property name="value">
-        <number>28081</number>
+        <number>28082</number>
        </property>
       </widget>
      </item>
@@ -143,7 +143,7 @@
       </size>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wallet GUI will connect to Wallet daemon (walletd) in the local or global network. Please specify IP address or domain name and the port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wallet GUI will connect to Wallet daemon (wallet-rpc) in the local or global network. Please specify IP address or domain name and the port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
