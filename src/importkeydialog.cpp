@@ -56,7 +56,8 @@ void ImportKeyDialog::loadKey()
 
 void ImportKeyDialog::keyChanged()
 {
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(ui->keyEdit->toPlainText().length() == 256);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(ui->keyEdit->toPlainText().length() == 256 ||
+                                                            ui->keyEdit->toPlainText().length() == 128);
 }
 
 }

@@ -15,7 +15,7 @@ WalletdParamsDialog::WalletdParamsDialog(bool allowToRestart, QWidget *parent)
 {
     ui->setupUi(this);
 //    ui->applyButton->setEnabled(allowToRestart);
-    ui->applyButton->setText(allowToRestart_ ? tr("Save and restart walletd") : tr("Save"));
+    ui->applyButton->setText(allowToRestart_ ? tr("Save and restart wallet-rpc") : tr("Save"));
     ui->paramsEdit->setText(Settings::instance().getWalletdParams().join(QChar(' ')));
 }
 
