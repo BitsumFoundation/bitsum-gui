@@ -35,7 +35,7 @@ constexpr char LOCAL_HOST[] = "127.0.0.1";
 constexpr char DEFAULT_WORK_DIR[] = ".bitsum";
 #endif
 
-const constexpr char* DEFAULT_MINING_POOLS[] = { "pool.bitsum.uz:3333", "sum.gonspool.com:4445", "sum.npool.pw:3333", "sum.dreampool.info:3333" };
+const constexpr char* DEFAULT_MINING_POOLS[] = { "pool.bitsum.uz:3333", "bsm.cryptopool.space:3333" };
 
 static
 bool readJsonFile(QIODevice& device, QSettings::SettingsMap& map)
