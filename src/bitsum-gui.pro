@@ -22,16 +22,22 @@ win32: VERSION = 1.18.7.3
 
 CONFIG += c++14 strict_c++ no-opengl
 
-DESTDIR = $$PWD/../bin
+ARCH = $$QMAKE_TARGET.arch
+contains(QMAKE_TARGET.arch, x86_64):{
+ARCH = x64
+}
 
-# copy walletd adjacent to bitsum-gui binary on all 3 platforms
+message("Building for $$ARCH")
+DESTDIR = $$PWD/../bin/$$ARCH/
+
+# copy wallet-rpc adjacent to bitsum-gui binary on all 3 platforms
 win32 {
-WALLETD_BY_SRC_PATH = $$shell_path($$clean_path("$$PWD/../../bitsum_core/bin/x64/Release/wallet-rpc.exe"))
+WALLETD_BY_SRC_PATH = $$shell_path($$clean_path("$$PWD/../../bitsum_core/bin/$$ARCH/wallet-rpc.exe"))
 Debug:BY_DST_PATH = $$shell_path($$clean_path("$$DESTDIR"))
 Release:BY_DST_PATH = $$shell_path($$clean_path("$$DESTDIR"))
 copywalletrpc.commands = $(COPY_FILE) $${WALLETD_BY_SRC_PATH} $${BY_DST_PATH}
 }else:macx {
-copywalletrpc.commands += $(COPY_FILE) $$PWD/../../bitsum_core/bin/wallet-rpc $$DESTDIR/bitsum-gui.app/Contents/MacOS
+copywalletrpc.commands += $(COPY_FILE) $$PWD/../../bitsum_core/bin/$$ARCH/wallet-rpc $$DESTDIR/bitsum-gui.app/Contents/MacOS
 }else {
 copywalletrpc.commands += $(COPY_FILE) $$PWD/../../bitsum_core/bin/wallet-rpc $$DESTDIR
 }
@@ -187,13 +193,13 @@ RESOURCES += \
     resources.qrc \
 
 
-unix|win32: LIBS += -L$$PWD/../../bitsum_core/libs/x64/ -lbitsum-crypto
+unix|win32: LIBS += -L$$PWD/../../bitsum_core/libs/$$ARCH/ -lbitsum-crypto
 
 INCLUDEPATH += $$PWD/../../bitsum_core/src
 DEPENDPATH += $$PWD/../../bitsum_core/src
 
-win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/x64/Release/bitsum-crypto.lib
-else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/x64/libbitsum-crypto.a
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/$$ARCH/bitsum-crypto.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/$$ARCH/libbitsum-crypto.a
 
 # to add necessary dependencies,
 # 1. delete built bitsum-gui.app to delete old dependencies (dylibs and frameworks)
