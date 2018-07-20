@@ -15,7 +15,7 @@ TEMPLATE = app
 macx: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
 macx: ICON = images/bitsum.icns
 win32: RC_ICONS = images/bitsum.ico
-win32: VERSION = 1.18.7.3
+win32: VERSION = 1.18.7.20
 
 #QMAKE_CXXFLAGS += -fno-omit-frame-pointer -fsanitize=address,undefined
 #LIBS += -lasan -lubsan
@@ -39,7 +39,7 @@ copywalletrpc.commands = $(COPY_FILE) $${WALLETD_BY_SRC_PATH} $${BY_DST_PATH}
 }else:macx {
 copywalletrpc.commands += $(COPY_FILE) $$PWD/../../bitsum_core/bin/$$ARCH/wallet-rpc $$DESTDIR/bitsum-gui.app/Contents/MacOS
 }else {
-copywalletrpc.commands += $(COPY_FILE) $$PWD/../../bitsum_core/bin/wallet-rpc $$DESTDIR
+copywalletrpc.commands += $(COPY_FILE) $$PWD/../../bitsum_core/bin/$$ARCH/wallet-rpc $$DESTDIR
 }
 first.depends = $(first) copywalletrpc
 export(first.depends)

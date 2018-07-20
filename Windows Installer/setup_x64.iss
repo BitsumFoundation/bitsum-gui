@@ -1,5 +1,5 @@
 ﻿#define MyAppName "Bitsum Wallet"
-#define MyAppVersion "1.18.7.3"
+#define MyAppVersion "1.18.7.20"
 #define MyAppPublisher "Bitsum Foundation"
 
 [Setup]
@@ -50,7 +50,7 @@ AlwaysUsePersonalGroup=True
 AppendDefaultGroupName=False
 
 [Files]
-Source: "..\bin\*"; DestDir: "{app}"; Flags: recursesubdirs replacesameversion
+Source: "..\bin\x64\*"; DestDir: "{app}"; Flags: recursesubdirs replacesameversion
 
 [Run]
 Filename: "{app}\bitsum-gui.exe"; WorkingDir: "{app}"; Flags: nowait postinstall shellexec; Description: "Start {#MyAppName}"
