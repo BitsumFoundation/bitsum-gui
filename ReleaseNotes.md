@@ -1,4 +1,9 @@
 ## Release Notes
+
+### v1.18.10.29
+
+- Core update
+
 ### v1.18.7.20
 
 - Core fixes

@@ -15,7 +15,7 @@ TEMPLATE = app
 macx: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
 macx: ICON = images/bitsum.icns
 win32: RC_ICONS = images/bitsum.ico
-win32: VERSION = 1.18.7.20
+win32: VERSION = 1.18.10.29
 
 #QMAKE_CXXFLAGS += -fno-omit-frame-pointer -fsanitize=address,undefined
 #LIBS += -lasan -lubsan
@@ -27,6 +27,9 @@ contains(QMAKE_TARGET.arch, x86_64):{
 ARCH = x64
 }
 
+macx {
+ARCH = x64
+}
 message("Building for $$ARCH")
 DESTDIR = $$PWD/../bin/$$ARCH/
 
@@ -204,5 +207,5 @@ else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../../bitsum_core/libs/$$ARCH/libbi
 # to add necessary dependencies,
 # 1. delete built bitsum-gui.app to delete old dependencies (dylibs and frameworks)
 # 2. build
-# 3. run /Users/user/Qt/5.9.2/clang_64/bin/macdeployqt bitsum-gui.app
+# 3. run /Users/4egod/Qt/5.11.0/clang_64/bin/macdeployqt bitsum-gui.app
 # P.S. in 3, change path accroding to your Qt installation location
