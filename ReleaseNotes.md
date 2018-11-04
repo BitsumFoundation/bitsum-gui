@@ -1,8 +1,12 @@
 ## Release Notes
 
+### v1.18.11.5
+
+- Core update (LWMA-4)
+
 ### v1.18.10.29
 
-- Core update
+- Core update (LWMA-3)
 
 ### v1.18.7.20
 

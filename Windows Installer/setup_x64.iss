@@ -1,5 +1,5 @@
 ﻿#define MyAppName "Bitsum Wallet"
-#define MyAppVersion "1.18.10.29"
+#define MyAppVersion "1.18.11.5"
 #define MyAppPublisher "Bitsum Foundation"
 
 [Setup]
