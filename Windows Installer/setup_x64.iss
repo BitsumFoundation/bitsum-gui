@@ -1,5 +1,5 @@
 ﻿#define MyAppName "Bitsum Wallet"
-#define MyAppVersion "1.18.11.5"
+#define MyAppVersion "1.20.5.27"
 #define MyAppPublisher "Bitsum Foundation"
 
 [Setup]
@@ -17,7 +17,7 @@ InternalCompressLevel=ultra64
 SetupIconFile=icon.ico
 WizardImageFile=164x314.bmp
 WizardSmallImageFile=55x55.bmp
-AppCopyright=Copyright (C) {#MyAppPublisher}, 2018
+AppCopyright=Copyright (C) {#MyAppPublisher}, 2020
 OutputDir=bin
 AlwaysShowGroupOnReadyPage=True
 AlwaysShowDirOnReadyPage=True
@@ -28,7 +28,7 @@ VersionInfoVersion={#MyAppVersion}
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoDescription=Bitsum Blockchain
 VersionInfoTextVersion={#MyAppVersion}
-VersionInfoCopyright=Copyright (C) {#MyAppPublisher}, 2018
+VersionInfoCopyright=Copyright (C) {#MyAppPublisher}, 2020
 VersionInfoProductName=Bitsum
 VersionInfoProductVersion={#MyAppVersion}
 VersionInfoProductTextVersion={#MyAppVersion}

@@ -15,7 +15,7 @@ TEMPLATE = app
 macx: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
 macx: ICON = images/bitsum.icns
 win32: RC_ICONS = images/bitsum.ico
-win32: VERSION = 1.18.11.5
+win32: VERSION = 1.20.5.27
 
 #QMAKE_CXXFLAGS += -fno-omit-frame-pointer -fsanitize=address,undefined
 #LIBS += -lasan -lubsan
